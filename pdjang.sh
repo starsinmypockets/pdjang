@@ -2,7 +2,7 @@
 # Installs django into virtual environment with dependencies
 # Paul Walker <starsinmypockets@gmail.com>
 # 
-# Forked of django-bone
+# Forked from django-bone
 # # Justine Tunney <jtunney@lobstertech.com>
 # Licensed MIT
 #
@@ -15,7 +15,7 @@
 proj=$1
 email=$2
 pass=$3
-projRoot="/~/py-proj"
+projRoot="/srv/www/py-proj"
 envName="$1-env"
 envDir="$projRoot/$envName"
 projName="$1_proj"
@@ -26,15 +26,16 @@ adminEmail="starsinmypockets@gmail.com"
 password="securish123"
 
 # Install virtualenv
-cd ~/py-proj
+cd $projRoot
 echo "Installing Python virtual environment at $projRoot/$envName"
 virtualenv $envName
 echo "$envDir"
 
 # Activate virtualenv
 echo "Activating virtualenv"
-chmod 750 $envDir/bin/activate
-$envDir/bin/activate
+cd $envDir/bin
+chmod 750 ./activate
+./activate
 
 # Install Django & dependencies
 echo "Installing Django..."
