@@ -8,13 +8,11 @@
 #
 
 # If no arguments, print usage statement & exit from function
-[[ -n "$1" && -n "$2" && -n "$3" ]] || { echo "Usage: pdjang.sh projectname adminemail adminpass"; exit 0 ; }
+[[ -n "$1" ]] || { echo "Usage: pdjang.sh projectname"; exit 0 ; }
 # Else, continue and print the arguments
 
 # Define a bunch of silly variables
 proj=$1
-email=$2
-pass=$3
 projRoot="/srv/www/py-proj"
 envName="$1-env"
 envDir="$projRoot/$envName"
@@ -23,7 +21,6 @@ projDir="$envDir/$projName"
 projAppDir="$projDir/$projName"
 mainAppDir="$projDir/main"
 adminEmail="starsinmypockets@gmail.com"
-password="securish123"
 
 # Install virtualenv
 cd $projRoot
@@ -516,18 +513,19 @@ EOF
 
 # Create admin account
 cd $projDir
-/usr/bin/expect <<EOD
-spawn ./manage.py syncdb
-expect "Would you like to create one now? (yes/no):"
-send "yes\n"
-expect "Username (leave blank to use 'root'):"
-send "admin\n"
-expect "E-mail address:"
-send $email
-expect "Password:"
-send $pass
-expect "Password (again):"
-send "securish123\n"
-expect eof {exit}
-interact
-EOD
+./manage.py syncdb
+# /usr/bin/expect <<EOD
+# spawn ./manage.py syncdb
+# expect "Would you like to create one now? (yes/no):"
+# send "yes\n"
+# expect "Username (leave blank to use 'root'):"
+# send "admin\n"
+# expect "E-mail address:"
+# send $email
+# expect "Password:"
+# send $pass
+# expect "Password (again):"
+# send "securish123\n"
+# expect eof {exit}
+# interact
+# EOD
